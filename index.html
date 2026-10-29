@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Secret Invitation 💌</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="portal-page">
+
+  <!-- Floating hearts in the background (filled in by portal.js) -->
+  <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+
+  <main class="portal">
+
+    <!-- ========== SCENE: cat + envelope ========== -->
+    <section class="scene" id="scene">
+      <p class="cat-says" id="catSays"></p>
+
+      <div class="envelope-wrap" id="envelopeWrap">
+
+        <!-- The cat holding the envelope -->
+        <svg class="cat" viewBox="0 0 220 136" role="img" aria-label="A cute white and orange cat holding an envelope">
+          <defs>
+            <clipPath id="headClip"><ellipse cx="110" cy="70" rx="68" ry="52"/></clipPath>
+          </defs>
+          <!-- ears -->
+          <path d="M50 52 L56 10 L90 34 Z" fill="#fff" stroke="#7a93c4" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M170 52 L164 10 L130 34 Z" fill="#fff" stroke="#7a93c4" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M58 22 L60 38 L76 32 Z" fill="#ffb27a"/>
+          <path d="M162 22 L160 38 L144 32 Z" fill="#ffb27a"/>
+          <!-- head -->
+          <ellipse cx="110" cy="70" rx="68" ry="52" fill="#fff" stroke="#7a93c4" stroke-width="3"/>
+          <!-- orange patch (clipped inside the head) -->
+          <g clip-path="url(#headClip)">
+            <circle cx="162" cy="40" r="40" fill="#ffb27a"/>
+            <circle cx="50" cy="34" r="22" fill="#ffc99e"/>
+          </g>
+          <ellipse cx="110" cy="70" rx="68" ry="52" fill="none" stroke="#7a93c4" stroke-width="3"/>
+          <!-- eyes (they blink) -->
+          <g class="cat-eyes">
+            <ellipse cx="84" cy="72" rx="6" ry="8" fill="#2b3a67"/>
+            <ellipse cx="136" cy="72" rx="6" ry="8" fill="#2b3a67"/>
+            <circle cx="86" cy="69" r="2.2" fill="#fff"/>
+            <circle cx="138" cy="69" r="2.2" fill="#fff"/>
+          </g>
+          <!-- blush, nose, mouth -->
+          <ellipse cx="66" cy="90" rx="10" ry="6" fill="#ffb6cf" opacity=".75"/>
+          <ellipse cx="154" cy="90" rx="10" ry="6" fill="#ffb6cf" opacity=".75"/>
+          <path d="M105 84 L115 84 L110 90 Z" fill="#ff7fa8"/>
+          <path d="M110 90 Q110 98 102 97 M110 90 Q110 98 118 97" fill="none" stroke="#7a93c4" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- whiskers -->
+          <path d="M52 84 L30 80 M52 92 L30 96 M168 84 L190 80 M168 92 L190 96" stroke="#7a93c4" stroke-width="2" stroke-linecap="round"/>
+          <!-- paws gripping the envelope -->
+          <ellipse cx="62" cy="120" rx="21" ry="14" fill="#fff" stroke="#7a93c4" stroke-width="3"/>
+          <ellipse cx="158" cy="120" rx="21" ry="14" fill="#fff" stroke="#7a93c4" stroke-width="3"/>
+          <path d="M55 124 L55 117 M62 125 L62 117 M69 124 L69 117 M151 124 L151 117 M158 125 L158 117 M165 124 L165 117" stroke="#c9d6ee" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+
+        <!-- The envelope -->
+        <div class="envelope" id="envelope">
+          <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
+          <div class="env-back"></div>
+          <div class="env-letter"><span>💌</span></div>
+          <div class="env-pocket"></div>
+          <div class="env-flap" id="envFlap"></div>
+
+          <!-- The glowing heart seal (this is the button he clicks) -->
+          <button class="seal" id="seal" type="button" aria-label="Open the envelope">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M32 56 C8 38 4 24 10 15 C16 6 28 8 32 18 C36 8 48 6 54 15 C60 24 56 38 32 56 Z" fill="#ff7fa8" stroke="#ff4f86" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M18 20 C20 16 25 15 27 18" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Secret phrase box (only shown if accessMode is "phrase" in config.js) -->
+      <form class="phrase-form" id="phraseForm" hidden>
+        <label for="phraseInput">Secret phrase</label>
+        <div class="phrase-row">
+          <input type="text" id="phraseInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type it here…">
+          <button type="submit" class="btn btn-small">Unlock 🔑</button>
+        </div>
+      </form>
+
+      <p class="scene-hint" id="sceneHint"></p>
+    </section>
+
+    <!-- ========== INVITATION (appears after the envelope opens) ========== -->
+    <section class="invitation" id="invitation" hidden>
+      <div class="invite-card">
+        <p class="invite-top" id="inviteTop"></p>
+        <h1 class="invite-greeting" id="inviteGreeting"></h1>
+        <p class="invite-sub" id="inviteSub"></p>
+        <div class="invite-stickers" aria-hidden="true">🌸 💗 ✨ 🐾 ✨ 💗 🌸</div>
+        <button class="btn" id="enterBtn" type="button"></button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- A mischievous cat that peeks from the right edge when he waits -->
+  <div class="peek-cat" id="peekCat" aria-hidden="true">
+    <span class="peek-bubble" id="peekBubble"></span>
+    <svg viewBox="0 0 90 84">
+      <path d="M12 34 L14 6 L36 22 Z" fill="#ffb27a" stroke="#c97a45" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M78 34 L76 6 L54 22 Z" fill="#ffb27a" stroke="#c97a45" stroke-width="2.5" stroke-linejoin="round"/>
+      <ellipse cx="45" cy="48" rx="36" ry="30" fill="#ffb27a" stroke="#c97a45" stroke-width="2.5"/>
+      <ellipse cx="45" cy="58" rx="16" ry="11" fill="#fff"/>
+      <!-- side-eye: pupils pushed to the left -->
+      <ellipse cx="30" cy="44" rx="9" ry="8" fill="#fff" stroke="#c97a45" stroke-width="1.5"/>
+      <ellipse cx="60" cy="44" rx="9" ry="8" fill="#fff" stroke="#c97a45" stroke-width="1.5"/>
+      <circle cx="26" cy="45" r="4" fill="#2b3a67"/>
+      <circle cx="56" cy="45" r="4" fill="#2b3a67"/>
+      <path d="M22 37 L38 39 M52 39 L68 37" stroke="#c97a45" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M42 56 L48 56 L45 60 Z" fill="#ff7fa8"/>
+    </svg>
+  </div>
+
+  <!-- A tiny hidden heart (bottom-left corner) -->
+  <button class="hidden-heart" id="hiddenHeart" type="button" aria-label="A tiny hidden heart">💗</button>
+
+  <!-- Small message popup -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Scripts: order matters! config first, then progress, then portal -->
+  <script src="js/config.js"></script>
+  <script src="js/config-games.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/portal.js"></script>
+</body>
+</html>

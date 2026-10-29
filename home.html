@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bhonduu's Little World 💙</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="dash-page">
+
+  <!-- Reusable cat face (drawn once, used in several places with <use>) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="faceClip"><ellipse cx="60" cy="58" rx="40" ry="32"/></clipPath>
+      <symbol id="cat-face" viewBox="0 0 120 100">
+        <path d="M24 40 L28 8 L52 26 Z" fill="#fff" stroke="#7a93c4" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M96 40 L92 8 L68 26 Z" fill="#fff" stroke="#7a93c4" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M31 19 L32 31 L43 27 Z" fill="#ffb27a"/>
+        <path d="M89 19 L88 31 L77 27 Z" fill="#ffb27a"/>
+        <ellipse cx="60" cy="58" rx="40" ry="32" fill="#fff"/>
+        <g clip-path="url(#faceClip)">
+          <circle cx="92" cy="38" r="26" fill="#ffb27a"/>
+          <circle cx="30" cy="34" r="14" fill="#ffc99e"/>
+        </g>
+        <ellipse cx="60" cy="58" rx="40" ry="32" fill="none" stroke="#7a93c4" stroke-width="2.5"/>
+        <ellipse cx="46" cy="58" rx="4" ry="5.5" fill="#2b3a67"/>
+        <ellipse cx="74" cy="58" rx="4" ry="5.5" fill="#2b3a67"/>
+        <circle cx="47.4" cy="56" r="1.4" fill="#fff"/>
+        <circle cx="75.4" cy="56" r="1.4" fill="#fff"/>
+        <ellipse cx="36" cy="70" rx="7" ry="4" fill="#ffb6cf" opacity=".75"/>
+        <ellipse cx="84" cy="70" rx="7" ry="4" fill="#ffb6cf" opacity=".75"/>
+        <path d="M56 66 L64 66 L60 71 Z" fill="#ff7fa8"/>
+        <path d="M60 71 Q60 77 54 76 M60 71 Q60 77 66 76" fill="none" stroke="#7a93c4" stroke-width="2" stroke-linecap="round"/>
+        <path d="M30 66 L16 63 M30 72 L16 75 M90 66 L104 63 M90 72 L104 75" stroke="#7a93c4" stroke-width="1.5" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+
+  <main class="dash">
+
+    <!-- ========== WELCOME ========== -->
+    <section class="welcome panel reveal" style="--d:.1s">
+      <div class="welcome-cat" aria-hidden="true">
+        <svg viewBox="0 0 170 120">
+          <use href="#cat-face" x="12" y="10" width="120" height="100"/>
+          <!-- waving paw -->
+          <g class="wave-paw">
+            <ellipse cx="146" cy="70" rx="11" ry="17" fill="#fff" stroke="#7a93c4" stroke-width="2.5"/>
+            <path d="M142 62 L142 58 M146 61 L146 57 M150 62 L150 58" stroke="#c9d6ee" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <span class="float-spark s1">✨</span>
+        <span class="float-spark s2">💗</span>
+      </div>
+      <div class="welcome-text">
+        <p class="eyebrow" id="welcomeEyebrow"></p>
+        <h1 id="welcomeTitle"></h1>
+        <p class="welcome-main" id="welcomeText"></p>
+        <p class="welcome-extra" id="welcomeText2"></p>
+      </div>
+    </section>
+
+    <!-- ========== STAR TRACKER ========== -->
+    <section class="tracker panel reveal" style="--d:.3s" aria-labelledby="trackerTitle">
+      <h2 id="trackerTitle"></h2>
+      <ul class="stars" id="stars"></ul>
+      <div class="bar" id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" aria-label="Stars collected">
+        <span id="barFill"></span>
+      </div>
+      <p class="tracker-msg" id="trackerMsg" aria-live="polite"></p>
+    </section>
+
+    <!-- ========== FOUR CARDS ========== -->
+    <section class="cards" aria-label="Things to explore">
+
+      <!-- Card 1: Play -->
+      <button class="card card-play reveal" style="--d:.5s" type="button" data-card="play">
+        <span class="card-art">
+          <svg class="face" viewBox="0 0 120 100" aria-hidden="true"><use href="#cat-face"/></svg>
+          <span class="art-badge" aria-hidden="true">🎮</span>
+        </span>
+        <span class="card-title"></span>
+        <span class="card-text"></span>
+        <span class="card-cta"></span>
+      </button>
+
+      <!-- Card 2: Our Memories -->
+      <button class="card card-memories reveal" style="--d:.65s" type="button" data-card="memories" hidden>
+        <span class="card-art polaroids" aria-hidden="true">
+          <span class="mini-pol" style="--r:-12deg; left:0"><i>🌸</i></span>
+          <span class="mini-pol" style="--r:3deg; left:26px"><i>💙</i></span>
+          <span class="mini-pol" style="--r:14deg; left:52px"><i>✨</i></span>
+        </span>
+        <span class="card-title"></span>
+        <span class="card-text"></span>
+        <span class="card-cta"></span>
+      </button>
+
+      <!-- Card 3: Birthday Surprise -->
+      <button class="card card-birthday reveal" style="--d:.8s" type="button" data-card="birthday" hidden>
+        <span class="lock-badge" aria-hidden="true">🔒</span>
+        <span class="card-art">
+          <svg class="face" viewBox="0 0 120 100" aria-hidden="true"><use href="#cat-face"/></svg>
+          <span class="party-hat" aria-hidden="true"></span>
+          <span class="art-badge" aria-hidden="true">🎂</span>
+        </span>
+        <span class="card-title"></span>
+        <span class="card-text"></span>
+        <span class="card-cta"></span>
+      </button>
+
+      <!-- Card 4: A Little Something -->
+      <button class="card card-letter reveal" style="--d:.95s" type="button" data-card="letter" hidden>
+        <span class="lock-badge" aria-hidden="true">🔒</span>
+        <span class="card-art">
+          <svg class="face" viewBox="0 0 120 100" aria-hidden="true"><use href="#cat-face"/></svg>
+          <span class="art-badge letter-badge" aria-hidden="true">💌</span>
+        </span>
+        <span class="card-title"></span>
+        <span class="card-text"></span>
+        <span class="card-cta"></span>
+      </button>
+
+      <!-- Card 5: Heartfelt Ending; revealed only after the letter is completed -->
+      <button class="card card-ending reveal" style="--d:1.1s" type="button" data-card="ending" hidden>
+        <span class="card-art">
+          <svg class="face" viewBox="0 0 120 100" aria-hidden="true"><use href="#cat-face"/></svg>
+          <span class="art-badge" aria-hidden="true">💗</span>
+        </span>
+        <span class="card-title"></span>
+        <span class="card-text"></span>
+        <span class="card-cta"></span>
+      </button>
+
+    </section>
+  </main>
+
+  <!-- ========== MEMORIES PREVIEW POP-UP ========== -->
+  <div class="modal-backdrop" id="memModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="memTitle">
+      <h2 id="memTitle"></h2>
+      <p id="memIntro"></p>
+      <div class="polaroid-row" id="memPhotos"></div>
+      <p class="mem-note" id="memNote"></p>
+      <div class="modal-actions">
+        <button class="btn" id="memOpenFull" type="button" hidden></button>
+        <button class="btn btn-soft" id="memClose" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Script order matters: config, home text, progress, helpers, then this page -->
+  <script src="js/config.js"></script>
+  <script src="js/config-home.js"></script>
+  <script src="js/config-games.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

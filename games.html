@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Little Missions 🎮</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/games.css">
+</head>
+<body class="games-page">
+
+  <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+
+  <header class="games-top">
+    <a class="back-link" id="backLink" href="home.html">← Dashboard</a>
+    <ol class="game-tabs" id="gameTabs" aria-label="Your three missions"></ol>
+  </header>
+
+  <!-- Each game draws itself inside this box -->
+  <main class="stage" id="stage"></main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript><p style="text-align:center;padding:24px;">Please turn on JavaScript to play. 💙</p></noscript>
+
+  <!-- Script order matters -->
+  <script src="js/config.js"></script>
+  <script src="js/config-games.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/cats.js"></script>
+  <script src="js/game-hearts.js"></script>
+  <script src="js/game-questions.js"></script>
+  <script src="js/game-pawprints.js"></script>
+  <script src="js/games.js"></script>
+</body>
+</html>

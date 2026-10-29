@@ -1,0 +1,156 @@
+/* =========================================================
+   style.css — shared design system for the whole website
+   Colours, fonts, buttons, toast, floating hearts.
+   Every page will use this file.
+   ========================================================= */
+
+:root {
+  /* Baby blues */
+  --blue-100: #eaf6ff;
+  --blue-200: #cfe9ff;
+  --blue-300: #a9d6f7;
+  --blue-500: #5b9bd5;
+  --blue-800: #1f3f73;   /* darker blue for headings and main buttons */
+
+  /* Blush pinks */
+  --pink-100: #fff0f5;
+  --pink-200: #ffd9e6;
+  --pink-300: #ffb6cf;
+  --pink-500: #ff7fa8;
+
+  /* Whites */
+  --white: #ffffff;
+  --offwhite: #fffaf7;
+
+  /* Text */
+  --text: #2b3a67;
+  --text-soft: #5a6b92;
+
+  /* Shape and shadow */
+  --radius: 22px;
+  --shadow-soft: 0 10px 30px rgba(63, 127, 192, 0.18);
+  --shadow-pop: 0 16px 40px rgba(31, 63, 115, 0.22);
+
+  /* Fonts: these are already on Windows/Mac. Phones use a similar fallback. */
+  --font-body: "Nunito", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-hand: "Ink Free", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(160deg, var(--blue-100) 0%, var(--offwhite) 48%, var(--pink-100) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--blue-500), var(--blue-800));
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.7rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(31, 63, 115, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 26px rgba(31, 63, 115, 0.35); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn:focus-visible,
+.seal:focus-visible,
+.hidden-heart:focus-visible { outline: 3px solid var(--pink-500); outline-offset: 4px; }
+.btn-small { font-size: 0.95rem; padding: 0.6rem 1.1rem; }
+
+/* ---------- Floating background hearts ---------- */
+.bg-hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.bg-hearts span {
+  position: absolute;
+  bottom: -50px;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.55; }
+  90%  { opacity: 0.45; }
+  100% { transform: translateY(-115vh) translateX(30px) rotate(25deg); opacity: 0; }
+}
+
+/* ---------- Small popup message ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 30px);
+  background: var(--blue-800);
+  color: var(--white);
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: var(--shadow-pop);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  max-width: 90vw;
+  text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Cursor sparkle (desktop only, created by JS) ---------- */
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 90;
+  font-size: 14px;
+  animation: sparkleFade 0.75s ease-out forwards;
+}
+@keyframes sparkleFade {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to   { opacity: 0; transform: translate(-50%, calc(-50% + 18px)) scale(0.3) rotate(80deg); }
+}
+
+/* ---------- Respect "reduce motion" settings ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .bg-hearts { display: none; }
+}
+
+/* ---------- Bursts and heart rain (used by the games and later pages) ---------- */
+.burst-p {
+  position: fixed;
+  z-index: 95;
+  pointer-events: none;
+  animation: burstFly 1.3s ease-out forwards;
+}
+@keyframes burstFly {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
+  to   { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); }
+}
+.rain-p {
+  position: fixed;
+  top: -40px;
+  z-index: 95;
+  pointer-events: none;
+  animation: rainFall linear forwards;
+}
+@keyframes rainFall {
+  from { transform: translateY(0) rotate(0deg); opacity: 1; }
+  to   { transform: translateY(112vh) rotate(var(--rot)); opacity: 0.9; }
+}

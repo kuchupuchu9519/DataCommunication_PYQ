@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf4ff">
+  <title>Our Little Memories 📸</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body class="memory-page">
+  <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+  <header class="story-top"><a class="story-back" href="home.html">← Dashboard</a><span>📸 Our scrapbook</span></header>
+  <main class="story-main">
+    <section class="story-hero">
+      <div class="story-sticker" aria-hidden="true">🐾 💙 📸</div>
+      <p class="eyebrow">A few little pieces of us</p>
+      <h1>Our Little Memories, Bhonduu 💗</h1>
+      <p class="story-intro">Some moments become special simply because I got to share them with you. This tiny scrapbook is for the silly moments, the little smiles, and all the memories still waiting to happen.</p>
+      <p class="story-note" id="photoNote">You can add your photos to the <code>images</code> folder. Until then, these little placeholders will keep their spots warm. 🌸</p>
+    </section>
+    <section class="memory-grid" aria-label="Memory scrapbook">
+      <article class="memory-card"><div class="memory-photo"><img src="images/memory-1.svg" alt="A favourite memory together" loading="lazy"><span class="photo-placeholder" aria-hidden="true">🌸<small>Our favourite moment</small></span></div><p class="memory-caption">Some moments become special simply because I got to share them with you. 💙</p></article>
+      <article class="memory-card"><div class="memory-photo"><img src="images/memory-2.svg" alt="A silly moment that makes me smile" loading="lazy"><span class="photo-placeholder" aria-hidden="true">😼<small>Your silly side</small></span></div><p class="memory-caption">You have absolutely no idea how much your silly little self makes me smile. 🫶🏻</p></article>
+      <article class="memory-card"><div class="memory-photo"><img src="images/memory-3.svg" alt="A memory worth keeping" loading="lazy"><span class="photo-placeholder" aria-hidden="true">✨<small>A moment to keep</small></span></div><p class="memory-caption">If I could keep a few moments in my pocket forever, some would definitely be with you. 💗</p></article>
+      <article class="memory-card"><div class="memory-photo"><img src="images/memory-4.svg" alt="A little memory together" loading="lazy"><span class="photo-placeholder" aria-hidden="true">🐾<small>More memories soon</small></span></div><p class="memory-caption">And this is only a little beginning… there are still so many memories left for us to make. 🌷</p></article>
+    </section>
+    <section class="story-footer-panel">
+      <p class="eyebrow">One last little stop</p>
+      <h2>Ready for something from my heart? 💌</h2>
+      <p>You've finished the birthday surprise. Now come read the little letter I saved just for you.</p>
+      <button class="btn btn-big" id="letterContinue" type="button">Open your letter 💌</button>
+      <p class="small-note" id="memoryStatus" aria-live="polite"></p>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/config.js"></script>
+  <script src="js/config-games.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/memories.js"></script>
+</body>
+</html>

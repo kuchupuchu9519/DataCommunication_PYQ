@@ -1,0 +1,368 @@
+/* =========================================================
+   pages.css — page-specific styles.
+   Right now: the invitation portal (index.html).
+   ========================================================= */
+
+.portal-page { display: grid; place-items: center; padding: 20px 16px; }
+
+.portal {
+  position: relative;
+  z-index: 1;
+  width: min(94vw, 520px);
+  text-align: center;
+}
+
+/* ---------- The scene (cat + envelope) ---------- */
+.scene { transition: opacity 0.7s ease, transform 0.7s ease; }
+.scene.leaving { opacity: 0; transform: scale(0.9) translateY(10px); pointer-events: none; }
+
+.cat-says {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 0.55rem 1.1rem;
+  background: var(--white);
+  border: 2px solid var(--blue-200);
+  border-radius: 18px;
+  font-weight: 700;
+  color: var(--blue-800);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+/* little speech-bubble tail */
+.cat-says::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 14px; height: 14px;
+  background: var(--white);
+  border-right: 2px solid var(--blue-200);
+  border-bottom: 2px solid var(--blue-200);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.envelope-wrap {
+  --env-w: clamp(250px, 76vw, 340px);
+  width: var(--env-w);
+  margin: 0 auto;
+}
+
+/* ---------- The cat ---------- */
+.cat {
+  display: block;
+  width: 78%;
+  margin: 0 auto -30px;       /* negative margin = the paws overlap the envelope */
+  position: relative;
+  z-index: 6;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 8px rgba(31, 63, 115, 0.18));
+  animation: catBob 3.2s ease-in-out infinite;
+  transition: transform 0.7s ease, opacity 0.6s ease;
+}
+@keyframes catBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.cat-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.5s infinite;
+}
+@keyframes blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96%           { transform: scaleY(0.1); }
+}
+.envelope-wrap.is-open .cat {
+  animation: none;
+  transform: translateY(40px) scale(0.85);
+  opacity: 0;
+}
+
+/* ---------- The envelope ---------- */
+.envelope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  perspective: 900px;
+  animation: wiggle 5s ease-in-out infinite;
+  filter: drop-shadow(0 14px 18px rgba(63, 127, 192, 0.25));
+}
+@keyframes wiggle {
+  0%, 84%, 100% { transform: rotate(0deg); }
+  87% { transform: rotate(-3deg); }
+  90% { transform: rotate(3deg); }
+  93% { transform: rotate(-2deg); }
+  96% { transform: rotate(2deg); }
+}
+/* bigger wiggle if he waits (class added by portal.js) */
+.envelope.wiggle-more { animation: wiggleBig 0.9s ease; }
+@keyframes wiggleBig {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(-6deg) scale(1.03); }
+  35% { transform: rotate(6deg) scale(1.03); }
+  55% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.envelope-wrap.is-open .envelope { animation: none; }
+
+.env-back, .env-letter, .env-pocket, .env-flap { position: absolute; }
+
+.env-back {
+  inset: 0;
+  background: var(--pink-200);
+  border-radius: 14px;
+  z-index: 1;
+}
+
+/* the little paper that slides up */
+.env-letter {
+  left: 8%; right: 8%; top: 8%; height: 80%;
+  background: var(--white);
+  border-radius: 10px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.45s;
+}
+.envelope-wrap.is-open .env-letter { transform: translateY(-62%); }
+
+/* the front of the envelope (left, right and bottom triangles) */
+.env-pocket {
+  inset: 0;
+  background: linear-gradient(180deg, var(--pink-300), var(--pink-200));
+  border-radius: 14px;
+  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+  z-index: 3;
+}
+
+/* the top flap */
+.env-flap {
+  left: 0; top: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, var(--pink-500), var(--pink-300));
+  border-radius: 14px;
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+  transform-origin: top center;
+  transition: transform 0.6s ease;
+  z-index: 4;
+}
+.envelope-wrap.is-open .env-flap { transform: rotateX(180deg); }
+.envelope-wrap.flap-back .env-flap { z-index: 1; }   /* tuck behind once opened */
+
+/* ---------- The heart seal ---------- */
+.seal {
+  position: absolute;
+  left: 50%; top: 55%;
+  width: clamp(52px, 17vw, 66px);
+  height: clamp(52px, 17vw, 66px);
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 5;
+  animation: sealGlow 2s ease-in-out infinite;
+  transition: transform 0.25s ease, opacity 0.5s ease;
+}
+.seal svg { width: 100%; height: 100%; display: block; }
+.seal:hover { transform: translate(-50%, -50%) scale(1.15); }
+@keyframes sealGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255, 127, 168, 0.6)); }
+  50%      { filter: drop-shadow(0 0 16px rgba(255, 79, 134, 0.95)); }
+}
+/* locked (secret-phrase mode, before the phrase is right) */
+.seal.is-locked { animation: none; filter: grayscale(0.6) opacity(0.7); cursor: not-allowed; }
+.seal.is-locked:hover { transform: translate(-50%, -50%); }
+/* the moment he clicks */
+.seal.is-glowing {
+  animation: none;
+  filter: drop-shadow(0 0 26px rgba(255, 79, 134, 1)) brightness(1.15);
+  transform: translate(-50%, -50%) scale(1.3);
+}
+.envelope-wrap.is-open .seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.8);
+  pointer-events: none;
+}
+
+/* ---------- Hearts & sparkles that burst out ---------- */
+.burst-layer { position: absolute; inset: 0; pointer-events: none; z-index: 8; }
+.particle {
+  position: absolute;
+  left: 50%; top: 55%;
+  animation: burst 1.4s ease-out forwards;
+}
+@keyframes burst {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
+  to   { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); }
+}
+
+/* ---------- Secret phrase form ---------- */
+.phrase-form { margin: 22px auto 0; width: min(90%, 340px); }
+.phrase-form label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--blue-800); }
+.phrase-row { display: flex; gap: 8px; }
+.phrase-row input {
+  flex: 1; min-width: 0;
+  font: inherit;
+  padding: 0.6rem 0.9rem;
+  border: 2px solid var(--blue-200);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--text);
+}
+.phrase-row input:focus { outline: none; border-color: var(--pink-500); }
+.phrase-row input.shake { animation: shake 0.4s ease; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.scene-hint { margin: 20px 0 0; color: var(--text-soft); font-weight: 600; }
+
+/* ---------- Invitation card ---------- */
+.invitation { animation: popIn 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+.invitation[hidden] { display: none; }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.invite-card {
+  background: var(--white);
+  border-radius: 28px;
+  padding: clamp(26px, 6vw, 44px) clamp(20px, 5vw, 38px);
+  box-shadow: var(--shadow-pop);
+  border: 3px solid transparent;
+  background-image:
+    linear-gradient(var(--white), var(--white)),
+    linear-gradient(135deg, var(--blue-300), var(--pink-300));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+.invite-top {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--pink-500);
+}
+.invite-greeting {
+  margin: 0 0 14px;
+  font-family: var(--font-hand);
+  font-size: clamp(1.9rem, 7.5vw, 2.7rem);
+  line-height: 1.2;
+  color: var(--blue-800);
+}
+.invite-sub { margin: 0 0 18px; color: var(--text-soft); font-size: 1.05rem; }
+.invite-stickers { margin-bottom: 22px; font-size: 1.3rem; letter-spacing: 0.25em; }
+
+/* ---------- Peeking cat (right edge) ---------- */
+.peek-cat {
+  position: fixed;
+  right: -92px;
+  bottom: 24%;
+  width: 90px;
+  z-index: 5;
+  transform: rotate(-8deg);
+  transition: right 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  pointer-events: none;
+}
+.peek-cat svg { width: 100%; display: block; }
+.peek-cat.is-peeking { right: -22px; }
+.peek-bubble {
+  position: absolute;
+  right: 66px; top: -30px;
+  white-space: nowrap;
+  background: var(--white);
+  border: 2px solid var(--blue-200);
+  border-radius: 14px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue-800);
+  transform: rotate(8deg);
+}
+
+/* ---------- Hidden heart ---------- */
+.hidden-heart {
+  position: fixed;
+  left: 10px; bottom: 10px;
+  z-index: 4;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  opacity: 0.18;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.hidden-heart:hover, .hidden-heart:focus-visible { opacity: 1; transform: scale(1.4); }
+.hidden-heart.found { opacity: 1; animation: popIn 0.5s ease both; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 400px) {
+  .peek-cat { width: 70px; right: -72px; }
+  .peek-cat.is-peeking { right: -14px; }
+  .peek-bubble { display: none; }
+}
+
+/* ---------- Shared story pages: memories, letter and ending ---------- */
+.story-top {
+  position: relative; z-index: 2; width: min(1100px, calc(100% - 32px));
+  margin: 0 auto; padding: 20px 0; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; color: var(--blue-800); font-weight: 800;
+}
+.story-back { color: var(--blue-800); text-decoration: none; font-weight: 800; }
+.story-back:hover { color: var(--pink-500); }
+.story-main { position: relative; z-index: 1; width: min(1050px, calc(100% - 32px)); margin: 0 auto; padding: 16px 0 56px; }
+.story-hero, .story-footer-panel, .letter-paper, .ending-card {
+  background: rgba(255,255,255,.92); border: 1px solid rgba(122,147,196,.24);
+  border-radius: 28px; box-shadow: var(--shadow-soft); padding: clamp(24px, 5vw, 48px);
+}
+.story-hero { text-align: center; margin-bottom: 24px; }
+.story-sticker { font-size: 1.7rem; letter-spacing: .25em; margin-bottom: 12px; }
+.story-hero h1, .letter-paper h1, .ending-card h1 { color: var(--blue-800); line-height: 1.15; margin: .25em 0 .5em; }
+.story-intro { max-width: 700px; margin: 0 auto 16px; line-height: 1.8; color: var(--blue-800); }
+.story-note, .small-note { color: #64779d; font-size: .92rem; line-height: 1.65; }
+.memory-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; margin: 24px 0; }
+.memory-card { min-width: 0; padding: 16px; border-radius: 22px; background: rgba(255,255,255,.92); border: 1px solid rgba(122,147,196,.22); box-shadow: 0 8px 22px rgba(47,78,130,.08); transform: rotate(var(--tilt, 0deg)); }
+.memory-card:nth-child(2) { --tilt: 1deg; } .memory-card:nth-child(3) { --tilt: -1deg; }
+.memory-photo { position: relative; min-height: 210px; aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden; border-radius: 15px; background: linear-gradient(135deg,#eaf4ff,#fff0f6); }
+.memory-photo img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.photo-placeholder { display: grid; place-items: center; gap: 8px; text-align: center; font-size: 2.5rem; color: var(--blue-800); }
+.photo-placeholder small { font-size: .9rem; font-weight: 700; }
+.memory-caption { margin: 14px 4px 4px; color: var(--blue-800); line-height: 1.65; text-align: center; }
+.story-footer-panel { text-align: center; margin-top: 24px; }
+.story-footer-panel h2 { color: var(--blue-800); margin: .35em 0; }
+.story-footer-panel p:not(.eyebrow):not(.small-note) { line-height: 1.7; }
+.story-footer-panel .btn { margin-top: 10px; }
+.letter-main { max-width: 800px; }
+.letter-paper { position: relative; overflow: hidden; background: linear-gradient(150deg,rgba(255,255,255,.98),rgba(255,249,252,.97)); }
+.letter-paper::before { content: ""; position: absolute; inset: 14px; border: 1px dashed rgba(255,127,168,.38); border-radius: 19px; pointer-events: none; }
+.letter-paper > * { position: relative; z-index: 1; }
+.letter-decor { text-align: center; letter-spacing: .3em; font-size: 1.4rem; margin-bottom: 14px; }
+.letter-paper p:not(.eyebrow) { color: #3f527b; line-height: 1.95; font-size: 1.02rem; }
+.letter-signoff { margin-top: 28px; }
+.letter-signoff strong { color: var(--pink-500); }
+.letter-stamp { position: absolute !important; z-index: 0 !important; right: 28px; bottom: 26px; width: 64px; height: 64px; display: grid; place-content: center; text-align: center; border: 2px solid rgba(255,127,168,.45); border-radius: 50%; color: rgba(255,79,134,.6); font-size: .7rem; font-weight: 900; transform: rotate(12deg); }
+.letter-main .story-footer-panel { margin-top: 24px; }
+.ending-page { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+.ending-wrap { position: relative; z-index: 1; width: min(720px,100%); }
+.ending-card { text-align: center; }
+.ending-confetti { font-size: 1.4rem; letter-spacing: .25em; line-height: 2; }
+.ending-cat { font-size: 4rem; margin: 8px 0; }
+.ending-card p:not(.eyebrow):not(.small-note) { color: #3f527b; line-height: 1.85; }
+.ending-signoff { color: var(--pink-500) !important; font-weight: 900; font-size: 1.15rem; }
+.ending-card .btn { display: inline-flex; margin: 14px auto; text-decoration: none; }
+@media (max-width: 640px) {
+  .memory-grid { grid-template-columns: 1fr; }
+  .memory-photo { min-height: 190px; }
+  .story-top { align-items: flex-start; }
+  .story-hero, .story-footer-panel, .letter-paper, .ending-card { border-radius: 22px; }
+  .letter-stamp { right: 20px; bottom: 18px; opacity: .55; }
+}
+
+/* ---------- Locked buttons (Memories and Letter) look locked until they unlock ---------- */
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; filter: grayscale(0.3); box-shadow: none; }
+.btn:disabled:hover, .btn[aria-disabled="true"]:hover { transform: none; box-shadow: none; }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- Stage 4 build v2 (Birthday Celebration) -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Birthday, Bhonduuu! 🎂</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/birthday.css">
+</head>
+<body class="bday-page">
+
+  <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+  <div class="twinkle-layer" id="twinkleLayer" aria-hidden="true"></div>
+  <div class="balloon-layer" id="balloonLayer" aria-hidden="true"></div>
+
+  <header class="bday-top">
+    <a class="bday-back" id="backLink" href="home.html">← Dashboard</a>
+    <button class="music-btn" id="musicBtn" type="button" aria-pressed="false"></button>
+  </header>
+
+  <main class="bday-main">
+
+    <!-- ========== STEP 1: PLAYFUL INTRODUCTION ========== -->
+    <section class="intro-section" id="introSection" aria-labelledby="introTitle">
+      <div class="intro-card">
+        <div class="intro-cat" id="introCat" aria-hidden="true"></div>
+        <p class="eyebrow" id="introEyebrow"></p>
+        <h1 id="introTitle"></h1>
+        <p class="intro-text" id="introText"></p>
+        <p class="intro-says" id="introSays"></p>
+        <button class="btn btn-big" id="startBtn" type="button"></button>
+      </div>
+    </section>
+
+    <!-- ========== STEP 2: THE CAKE ========== -->
+    <section class="cake-section" id="cakeSection" hidden aria-labelledby="cakeTitle">
+      <p class="eyebrow" id="cakeEyebrow"></p>
+      <h2 class="big-title" id="cakeTitle"></h2>
+      <p class="bday-sub" id="cakeSub"></p>
+
+      <div class="cat-row">
+        <div class="bday-cat" aria-hidden="true">
+          <span class="hat"></span>
+          <div id="catMount"></div>
+        </div>
+        <p class="cat-bubble" id="catBubble" aria-live="polite"></p>
+      </div>
+
+      <div class="cake-stage">
+        <div class="sticker st-left" id="stickerL" aria-hidden="true"></div>
+        <div class="cake-wrap" id="cakeMount"></div>
+        <div class="sticker st-right" id="stickerR" aria-hidden="true"></div>
+      </div>
+
+      <p class="bday-instruction" id="bdayInstruction"></p>
+      <p class="candles-left" id="candlesLeft" aria-live="polite"></p>
+      <button class="btn" id="blowBtn" type="button"></button>
+    </section>
+
+    <!-- ========== STEP 3: THE SWEET WISH ========== -->
+    <section class="wish-section" id="wishSection" hidden aria-labelledby="wishTitle">
+      <div class="wish-card">
+        <div class="wish-stars" aria-hidden="true">✨ 🌟 ✨</div>
+        <h2 id="wishTitle"></h2>
+        <p class="wish-text" id="wishText"></p>
+        <button class="btn" id="wishBtn" type="button"></button>
+      </div>
+    </section>
+
+    <!-- ========== STEP 4: THE HEARTFELT MESSAGE ========== -->
+    <section class="message-section" id="messageSection" hidden aria-labelledby="msgHeading">
+      <article class="bday-card">
+        <span class="tape t1" aria-hidden="true"></span>
+        <span class="tape t2" aria-hidden="true"></span>
+        <div class="card-sticker" id="cardSticker" aria-hidden="true"></div>
+        <h2 id="msgHeading" class="line"></h2>
+        <div id="msgBody"></div>
+        <p class="signoff line" id="msgSign"></p>
+      </article>
+
+      <div class="bday-actions" id="bdayActions">
+        <a class="btn btn-big" id="memoriesBtn" href="memories.html"></a>
+        <a class="btn btn-soft" id="dashBtn" href="home.html"></a>
+      </div>
+      <button class="link-btn" id="relightBtn" type="button"></button>
+    </section>
+
+  </main>
+
+  <audio id="bdayAudio" loop preload="none"></audio>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript><p style="text-align:center;padding:24px;">Please turn on JavaScript to see your surprise. 💙</p></noscript>
+
+  <!-- Script order matters: config, birthday text, progress, helpers, cats, then this page -->
+  <script src="js/config.js"></script>
+  <script src="js/config-birthday.js"></script>
+  <script src="js/config-games.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/cats.js"></script>
+  <script src="js/birthday.js"></script>
+</body>
+</html>
